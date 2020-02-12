@@ -16,40 +16,73 @@ var moment = require('moment');
 var fs = require('fs');
 
 
-//Switch for argv commands
+//Switch for ARGV commands
 switch (process.argv[2]) {
     case "concert-this":
-            bands();
-            return;         
+        bandsInTown();
+        return;         
     case "spotify-this-song":
-        spotifysearch();
+        spotify();
         return;
     case "movie-this":
-        getMovie();
+        omdb();
         return;
     case "do-what-it-says":
         doWhatItSays();
         return;          
     };
 
-//Logs output to log.txt
-function logOutput(log,cmd){
-    // String to separate responses with liri command and timestamp
-    const logMsg = `------------------------------ ${cmd} ${moment().format("LLL")} ------------------------------\n${log}`;
+// //Logs output to log.txt
+// function logOutput(log,cmd){
+//     // String to separate responses with liri command and timestamp
+//     const logMsg = `------------------------------ ${cmd} ${moment().format("LLL")} ------------------------------\n${log}`;
 
-    // Log output to console
-    console.log(logMsg);
+//     // Log output to console
+//     console.log(logMsg);
 
-    // Log output to log.txt
-    fs.appendFile(filename, logMsg, (err,d) => {
-        if (err){
-            console.log(err);
-        }
+//     // Log output to log.txt
+//     fs.appendFile(filename, logMsg, (err,d) => {
+//         if (err){
+//             console.log(err);
+//         }
+//     });
+// }
+
+//--------------Methods----------------
+
+
+// ---Bands in Town ---
+
+function bandsInTown (){
+    var artist = process.argv.slice(3).join('+');
+    var queryUrl = "https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp";
+
+    axios.get(queryUrl).then(function(response){
+        console.log(response.data[0].venue.name);
+        console.log(response.data[0].venue.city);
+        console.log(response.data[0].venue.country);
+        var time = response.data[0].datetime;
+        var timeFormat = moment(time).format("MM/DD/YYYY");
+        console.log(timeFormat);
+    
+    }).catch(function(error){
+        if (error.response){
+            console.log(error.response.data);
+            console.log(error.response.status);
+            console.log(error.response.headers);
+        } else if (error.request){
+            console.log(error.request);
+        } else {
+            console.log("Error", error.message);
+        };
+        console.log(error.config);
     });
-}
+};
 
-// OMDB get movie
-function getMovie(){
+
+// ---OMDB get movie---
+
+function omdb(){
     // Default
     const defaultMovie = "Mr.Nobody";
 
@@ -111,30 +144,4 @@ function getMovie(){
             console.log(error.config);
         });
     };
-};
-
-function bands (){
-    var artist = process.argv.slice(3).join('+');
-    var queryUrl = "https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp";
-
-    axios.get(queryUrl).then(function(response){
-        console.log(response.data[0].venue.name);
-        console.log(response.data[0].venue.city);
-        console.log(response.data[0].venue.country);
-        var time = response.data[0].datetime;
-        var timePretty = moment(time).format("MM/DD/YYYY");
-        console.log(timePretty);
-    
-    }).catch(function(error){
-        if (error.response){
-            console.log(error.response.data);
-            console.log(error.response.status);
-            console.log(error.response.headers);
-        } else if (error.request){
-            console.log(error.request);
-        } else {
-            console.log("Error", error.message);
-        };
-        console.log(error.config);
-    });
 };
