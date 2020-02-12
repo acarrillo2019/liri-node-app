@@ -177,3 +177,29 @@ function omdb(){
         });
     };
 };
+
+
+// ---Do What it Says---
+
+function doWhatItSays(){
+    fs.readFile('random.txt', 'utf8', function(error,data){
+        if(error) return console.log(error);
+        var dataArr = data.split(", ");
+        var object = dataArr[0];
+        var song = dataArr[1];
+if(object === 'spotify-this-song'){
+
+    spotify.search({type: 'track', query: song}, function(err,data){
+        if(err){
+            console.log('Error occurred: ' + err);
+            return;
+        }
+        console.log(data.tracks.items[0].name);
+        console.log(data.tracks.items[0].artists[0].name);
+        console.log(data.tracks.items[0].album.name);
+        console.log(data.tracks.items[0].artists[0].href);
+        return;
+    });
+};
+});
+};
