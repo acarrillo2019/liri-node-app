@@ -20,16 +20,16 @@ var fs = require('fs');
 switch (process.argv[2]) {
     case "concert-this":
         bandsInTown();
-        return;         
+        break;         
     case "spotify-this-song":
-        spotify();
-        return;
+        getSong();
+        break;
     case "movie-this":
         omdb();
-        return;
+        break;
     case "do-what-it-says":
         doWhatItSays();
-        return;          
+        break;          
     };
 
 // //Logs output to log.txt
@@ -53,7 +53,7 @@ switch (process.argv[2]) {
 
 // ---Bands in Town ---
 
-function bandsInTown (){
+function bandsInTown() {
     var artist = process.argv.slice(3).join('+');
     var queryUrl = "https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp";
 
@@ -79,6 +79,38 @@ function bandsInTown (){
     });
 };
 
+
+// ---Spotify get song---
+
+function getSong(){
+    var search = process.argv.slice(3).join(" ");
+    if(!search){
+        spotify.search({type: 'track', query: 'the sign ace of base'}, function(err,data){
+            if(err){
+                console.log('Error occured: ' + err);
+                return;
+            }
+            console.log(data.tracks.items[19].name);
+            console.log(data.tracks.items[19].artists[0].name);
+            console.log(data.tracks.items[19].album.name);
+            console.log(data.tracks.items[19].artists[0].href);
+            return;
+        });
+    }else{
+
+        spotify.search({type: 'track', query: search}, function(err,data){
+            if(err){
+                console.log('Error occurred: ' + err);
+                return;
+            }
+            console.log(data.tracks.items[0].name);
+            console.log(data.tracks.items[0].artists[0].name);
+            console.log(data.tracks.items[0].album.name);
+            console.log(data.tracks.items[0].artists[0].href);
+            
+        });
+    };
+};
 
 // ---OMDB get movie---
 
