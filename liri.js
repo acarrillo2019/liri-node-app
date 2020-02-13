@@ -1,4 +1,4 @@
-// Required NPM
+// Required NPMs
 
 require("dotenv").config();
 var keys = require("./keys.js");
@@ -33,39 +33,17 @@ switch (process.argv[2]) {
     };
 
 
-// Next, we append the text into the "sample.txt" file.
-// If the file didn't exist, then it gets created on the fly.
 fs.appendFile("log.txt", text, function(err) {
-
-  // If an error was experienced we will log it.
   if (err) {
     console.log(err);
   }
-
-  // If no error is experienced, we'll log the phrase "Content Added" to our node console.
   else {
     console.log("Content Added!");
   }
-
 });
 
-// //Logs output to log.txt
-// function logOutput(log,cmd){
-//     // String to separate responses with liri command and timestamp
-//     const logMsg = `------------------------------ ${cmd} ${moment().format("LLL")} ------------------------------\n${log}`;
 
-//     // Log output to console
-//     console.log(logMsg);
-
-//     // Log output to log.txt
-//     fs.appendFile(filename, logMsg, (err,d) => {
-//         if (err){
-//             console.log(err);
-//         }
-//     });
-// }
-
-//--------------Methods----------------
+//--------------------------------Methods---------------------------------
 
 
 // ---Bands in Town ---
@@ -81,7 +59,11 @@ function bandsInTown() {
         var time = response.data[0].datetime;
         var timeFormat = moment(time).format("MM/DD/YYYY");
         console.log(timeFormat);
-    
+        // Logs output to log.txt
+        fs.appendFile("log.txt", "Name of the Venue: " + response.data[0].venue.name +"\n");
+        fs.appendFile("log.txt", "Name of the Venue: " + response.data[0].venue.city +"\n");
+        fs.appendFile("log.txt", "Name of the Venue: " + response.data[0].venue.country +"\n");
+        fs.appendFile("log.txt", "Name of the Venue: " + timeFormat +"\n");
     }).catch(function(error){
         if (error.response){
             console.log(error.response.data);
@@ -107,10 +89,15 @@ function getSong(){
                 console.log('Error occured: ' + err);
                 return;
             }
-            console.log(data.tracks.items[19].name);
-            console.log(data.tracks.items[19].artists[0].name);
-            console.log(data.tracks.items[19].album.name);
-            console.log(data.tracks.items[19].artists[0].href);
+            console.log("Song name: " + data.tracks.items[19].name);
+            console.log("Artist: " + data.tracks.items[19].artists[0].name);
+            console.log("Album: " + data.tracks.items[19].album.name);
+            console.log("Info: " + data.tracks.items[19].artists[0].href);
+            // Logs output to log.txt
+            fs.appendFile("log.txt", "Song name: " + data.tracks.items[19].name +"\n");
+            fs.appendFile("log.txt", "Artist: " + data.tracks.items[19].artists[0].name +"\n");
+            fs.appendFile("log.txt", "Album: " + data.tracks.items[19].album.name +"\n");
+            fs.appendFile("log.txt", "Info: " + data.tracks.items[19].artists[0].href +"\n");
             return;
         });
     }else{
@@ -120,11 +107,15 @@ function getSong(){
                 console.log('Error occurred: ' + err);
                 return;
             }
-            console.log(data.tracks.items[0].name);
-            console.log(data.tracks.items[0].artists[0].name);
-            console.log(data.tracks.items[0].album.name);
-            console.log(data.tracks.items[0].artists[0].href);
-            
+            console.log("Song name: " + data.tracks.items[0].name);
+            console.log("Artist: " + data.tracks.items[0].artists[0].name);
+            console.log("Album: " + data.tracks.items[0].album.name);
+            console.log("Info: " + data.tracks.items[0].artists[0].href);
+            // Logs output to log.txt
+            fs.appendFile("log.txt", "Song name: " + data.tracks.items[0].name +"\n");
+            fs.appendFile("log.txt", "Artist: " + data.tracks.items[0].artists[0].name +"\n");
+            fs.appendFile("log.txt", "Album: " + data.tracks.items[0].album.name +"\n");
+            fs.appendFile("log.txt", "Info: " + data.tracks.items[0].artists[0].href +"\n");
         });
     };
 };
@@ -155,7 +146,8 @@ function omdb(){
             console.log(`Language: ${response.data.Language}`);
             console.log(`Plot: ${response.data.Plot}`);
             console.log(`Actors: ${response.data.Actors}`);
-            logOutput(logString,"movie-this");
+            // Logs output to log.txt
+            fs.appendFile("log.txt", "Song name: " + queryUrl +"\n");
         }).catch(function(error){
             if (error.response){
                 console.log(error.response.data);
@@ -179,7 +171,8 @@ function omdb(){
             console.log(`Language: ${response.data.Language}`);
             console.log(`Plot: ${response.data.Plot}`);
             console.log(`Actors: ${response.data.Actors}`);
-            logOutput(logString,"movie-this");
+            //Logs output to log.txt
+            fs.appendFile("log.txt", "Song name: " + queryUrl +"\n");
         }).catch(function(error){
             if (error.response){
                 console.log(error.response.data);
