@@ -12,7 +12,7 @@ var axios = require('axios');
 // NPM module for moment
 var moment = require('moment');
 
-// NPM module used to read the random.txt file.
+// NPM module used to handle read/write.
 var fs = require('fs');
 
 
@@ -31,6 +31,23 @@ switch (process.argv[2]) {
         doWhatItSays();
         break;          
     };
+
+
+// Next, we append the text into the "sample.txt" file.
+// If the file didn't exist, then it gets created on the fly.
+fs.appendFile("log.txt", text, function(err) {
+
+  // If an error was experienced we will log it.
+  if (err) {
+    console.log(err);
+  }
+
+  // If no error is experienced, we'll log the phrase "Content Added" to our node console.
+  else {
+    console.log("Content Added!");
+  }
+
+});
 
 // //Logs output to log.txt
 // function logOutput(log,cmd){
