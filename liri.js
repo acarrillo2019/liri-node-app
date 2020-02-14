@@ -61,14 +61,16 @@ function bandsInTown() {
     var queryUrl = "https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp";
 
     axios.get(queryUrl).then(function (response) {
-        console.log(response.data[0].venue.name);
-        console.log(response.data[0].venue.city);
-        console.log(response.data[0].venue.country);
+        console.log("------------------------------ Concert-This " + moment().format("LLL") + "------------------------------" + '\n');
+        console.log("Artist: " + response.data[0].artist.name);
+        console.log("Venue: " + response.data[0].venue.name);
+        console.log("City: " + response.data[0].venue.city);
+        console.log("Country: " + response.data[0].venue.country);
         var time = response.data[0].datetime;
         var timeFormat = moment(time).format("MM/DD/YYYY");
-        console.log(timeFormat);
+        console.log("Time: " + timeFormat + '\n');
         // Logs output to log.txt
-        logOutput("Artist: " + queryUrl, "concert-this");
+        logOutput("Artist: " + response.data[0].artist.name, "concert-this");
     }).catch(function (error) {
         if (error.response) {
             console.log(error.response.data);
@@ -116,12 +118,13 @@ function getSong() {
                 console.log('Error occurred: ' + err);
                 return;
             }
-            console.log("Song name: " + data.tracks.items[0].name);
+            console.log("------------------------------ Spotify-This-Song " + moment().format("LLL") + "------------------------------" + '\n');
+            console.log("Song Name: " + data.tracks.items[0].name);
             console.log("Artist: " + data.tracks.items[0].artists[0].name);
             console.log("Album: " + data.tracks.items[0].album.name);
-            console.log("Info: " + data.tracks.items[0].artists[0].href);
+            console.log("Info: " + data.tracks.items[0].artists[0].href + '\n');
             // Logs output to log.txt
-            logOutput("Song name: " + data.tracks.items[0].name, "spotify-this-song");
+            logOutput("Song Name: " + data.tracks.items[0].name, "spotify-this-song");
         });
     };
 };
@@ -144,6 +147,7 @@ function omdb() {
     if (!movieName && process.argv[2] === "movie-this") {
         var queryUrl = "http://www.omdbapi.com/?t=" + defaultMovie + "&y=&plot=short&apikey=trilogy";
         axios.get(queryUrl).then(function (response) {
+            console.log("------------------------------ Spotify-This-Song " + moment().format("LLL") + "------------------------------" + '\n');
             console.log(`Name: ${response.data.Title}`);
             console.log(`Year: ${response.data.Year}`);
             console.log(`IMDB Rating: ${response.data.Ratings[0].Value}`);
@@ -151,7 +155,7 @@ function omdb() {
             console.log(`Country Produced: ${response.data.Country}`);
             console.log(`Language: ${response.data.Language}`);
             console.log(`Plot: ${response.data.Plot}`);
-            console.log(`Actors: ${response.data.Actors}`);
+            console.log(`Actors: ${response.data.Actors}` + '\n');
             // Logs output to log.txt
             logOutput("Movie: " + response.data.Title, "movie-this");
         }).catch(function (error) {
@@ -169,6 +173,7 @@ function omdb() {
         return;
     } else { // Searches user input movie
         axios.get(queryUrl).then(function (response) {
+            console.log("------------------------------ Spotify-This-Song " + moment().format("LLL") + "------------------------------" + '\n');
             console.log(`Name: ${response.data.Title}`);
             console.log(`Year: ${response.data.Year}`);
             console.log(`IMDB Rating: ${response.data.Ratings[0].Value}`);
@@ -176,7 +181,7 @@ function omdb() {
             console.log(`Country Produced: ${response.data.Country}`);
             console.log(`Language: ${response.data.Language}`);
             console.log(`Plot: ${response.data.Plot}`);
-            console.log(`Actors: ${response.data.Actors}`);
+            console.log(`Actors: ${response.data.Actors}` + '\n');
             //Logs output to log.txt
             logOutput("Movie: " + response.data.Title, "movie-this");
         }).catch(function (error) {
@@ -198,11 +203,11 @@ function omdb() {
 // ---Do What it Says---
 
 function doWhatItSays() {
-    fs.readFile('random.txt', 'utf8', function (error, data) {
+    fs.readFile('./random.txt', 'utf8', function (error, data) {
         if (error) return console.log(error);
-        var dataArr = data.split(", ");
-        var object = dataArr[0];
-        var song = dataArr[1];
+        var objectArray = data.split(", ");
+        var object = objectArray[0];
+        var song = objectArray[1];
         if (object === 'spotify-this-song') {
 
             spotify.search({
@@ -213,10 +218,13 @@ function doWhatItSays() {
                     console.log('Error occurred: ' + err);
                     return;
                 }
-                console.log(data.tracks.items[0].name);
-                console.log(data.tracks.items[0].artists[0].name);
-                console.log(data.tracks.items[0].album.name);
-                console.log(data.tracks.items[0].artists[0].href);
+                console.log("------------------------------ Do What It Says " + moment().format("LLL") + "------------------------------" + '\n');
+                console.log("Song name: " + data.tracks.items[0].name);
+                console.log("Artist: " + data.tracks.items[0].artists[0].name);
+                console.log("Album: " + data.tracks.items[0].album.name);
+                console.log("Info: " + data.tracks.items[0].artists[0].href + '\n');
+                //Logs output to log.txt
+                logOutput("Song: " + data.tracks.items[0].name, "do-what-it-says");
                 return;
             });
         };
