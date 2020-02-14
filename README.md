@@ -22,3 +22,7 @@ If the user doesn't type a movie in, LIRI will output data for the movie 'Mr. No
 Using the fs Node package, LIRI will take the text inside of random.txt and then use it to call one of LIRI's commands.
 
 LIRI logs all search queries into log.txt.
+
+## Watch it work
+[Video](https://www.google.com "Google's Homepage")
+[Image](https://www.google.com "Google's Homepage")
