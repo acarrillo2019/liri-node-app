@@ -28,4 +28,3 @@ LIRI logs all search queries into log.txt.
 
 [Image](https://raw.githubusercontent.com/acarrillo2019/liri-node-app/master/Liri-Node-Screenshot.PNG)
 
-* Mistakes have since been corrected
