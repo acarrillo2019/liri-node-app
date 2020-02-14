@@ -25,6 +25,7 @@ LIRI logs all search queries into log.txt.
 
 ## Watch it work
 [Video](https://raw.githubusercontent.com/acarrillo2019/liri-node-app/master/Alfredo%20Carrillo%20Liri-Node%20Demonstration.mp4)
+
 [Image](https://raw.githubusercontent.com/acarrillo2019/liri-node-app/master/Liri-Node-Screenshot.PNG)
 
 * Mistakes have since been corrected
