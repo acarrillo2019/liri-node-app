@@ -147,7 +147,7 @@ function omdb() {
     if (!movieName && process.argv[2] === "movie-this") {
         var queryUrl = "http://www.omdbapi.com/?t=" + defaultMovie + "&y=&plot=short&apikey=trilogy";
         axios.get(queryUrl).then(function (response) {
-            console.log("------------------------------ Spotify-This-Song " + moment().format("LLL") + "------------------------------" + '\n');
+            console.log("------------------------------ Movie-This " + moment().format("LLL") + "------------------------------" + '\n');
             console.log(`Name: ${response.data.Title}`);
             console.log(`Year: ${response.data.Year}`);
             console.log(`IMDB Rating: ${response.data.Ratings[0].Value}`);
@@ -173,7 +173,7 @@ function omdb() {
         return;
     } else { // Searches user input movie
         axios.get(queryUrl).then(function (response) {
-            console.log("------------------------------ Spotify-This-Song " + moment().format("LLL") + "------------------------------" + '\n');
+            console.log("------------------------------ Movie-This " + moment().format("LLL") + "------------------------------" + '\n');
             console.log(`Name: ${response.data.Title}`);
             console.log(`Year: ${response.data.Year}`);
             console.log(`IMDB Rating: ${response.data.Ratings[0].Value}`);
