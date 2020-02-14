@@ -24,5 +24,7 @@ Using the fs Node package, LIRI will take the text inside of random.txt and then
 LIRI logs all search queries into log.txt.
 
 ## Watch it work
-[Video](https://www.google.com "Google's Homepage")
-[Image](https://www.google.com "Google's Homepage")
+[Video](https://raw.githubusercontent.com/acarrillo2019/liri-node-app/master/Alfredo%20Carrillo%20Liri-Node%20Demonstration.mp4)
+[Image](https://raw.githubusercontent.com/acarrillo2019/liri-node-app/master/Liri-Node-Screenshot.PNG)
+
+* Mistakes have since been corrected
